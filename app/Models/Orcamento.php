@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Models;
+
+use App\Enums\StatusOrcamento;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
+#[Fillable(['valor_total', 'data_solicitacao', 'status', 'observacoes'])]
+class Orcamento extends Model
+{
+    /** @use HasFactory<\Database\Factories\OrcamentoFactory> */
+    use HasFactory;
+
+    /**
+     * @return BelongsTo<Cliente>
+     */
+    public function cliente(): BelongsTo
+    {
+        return $this->belongsTo(Cliente::class);
+    }
+
+    /**
+     * @return HasOne<Arte>
+     */
+    public function arte(): HasOne
+    {
+        return $this->hasOne(Arte::class);
+    }
+
+    /**
+     * @return HasOne<Material>
+     */
+    public function material(): HasOne
+    {
+        return $this->hasOne(Material::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'valor_total' => 'decimal:2',
+            'data_solicitacao' => 'datetime',
+            'status' => StatusOrcamento::class,
+            'observacoes' => 'string',
+        ];
+    }
+}
