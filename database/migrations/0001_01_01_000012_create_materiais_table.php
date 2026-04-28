@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('orcamento_id')->constrained()->cascadeOnDelete();
             $table->foreignId('tipo_material_id')->constrained('tipo_materiais')->cascadeOnDelete();
-            $table->foreignId('formato_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('formato_id')->constrained();
             $table->foreignId('gramatura_papel_id')->constrained('gramatura_papeis')->cascadeOnDelete();
             $table->foreignId('cores_impressao_id')->constrained('cores_impressao')->cascadeOnDelete();
             $table->foreignId('tipo_papel_id')->constrained('tipo_papeis')->cascadeOnDelete();

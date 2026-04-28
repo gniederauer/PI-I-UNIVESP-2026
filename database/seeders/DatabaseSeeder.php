@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
             CoresImpressaoSeeder::class,
             TipoPapelSeeder::class,
             TipoMaterialSeeder::class,
-            FormatoSeeder::class,
         ]);
     }
 }
