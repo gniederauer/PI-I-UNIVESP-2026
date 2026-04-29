@@ -39,6 +39,32 @@ class Orcamento extends Model
         return $this->hasOne(Material::class);
     }
 
+    /**
+     * Retorna a contagem de orçamentos agrupados por status.
+     *
+     * @return array<string, int>
+     */
+    public static function getCountsByStatus(): array
+    {
+        $totalCount = self::count('id');
+
+        $counts = self::query()
+            ->select('status')
+            ->get()
+            ->countBy(fn($orcamento) => $orcamento->status->value)
+            ->toArray();
+
+        return collect(StatusOrcamento::cases())
+            ->mapWithKeys(function (StatusOrcamento $status) use ($counts) {
+                return [
+                    str($status->name)->lower()->camel()->toString()
+                    => $counts[$status->value] ?? 0
+                ];
+            })
+            ->put('total', $totalCount)
+            ->toArray();
+    }
+
     protected function casts(): array
     {
         return [
