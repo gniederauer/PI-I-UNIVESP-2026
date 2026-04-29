@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 #[Fillable(['nome_empresa', 'nome_solicitante', 'email', 'whatsapp'])]
 class Cliente extends Model
@@ -28,6 +29,14 @@ class Cliente extends Model
     public function orcamentos(): HasMany
     {
         return $this->hasMany(Orcamento::class);
+    }
+
+    /**
+     * @return HasOne<Endereco>
+     */
+    public function endereco(): HasOne
+    {
+        return $this->hasOne(Endereco::class);
     }
 
     protected function casts(): array

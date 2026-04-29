@@ -18,7 +18,7 @@ class MaterialFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'quantidade' => $this->faker->numberBetween(1, 100),
         ];
     }
 }

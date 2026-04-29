@@ -18,7 +18,9 @@ class ArteFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'possui_arte' => $this->faker->boolean(),
+            'precisa_criacao' => $this->faker->boolean(),
+            'arquivo' => $this->faker->filePath(),
         ];
     }
 }

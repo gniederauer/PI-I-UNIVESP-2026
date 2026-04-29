@@ -50,7 +50,7 @@ class Material extends Model
     /**
      * @return BelongsTo<CoresImpressao>
      */
-    public function corImpressao(): BelongsTo
+    public function coresImpressao(): BelongsTo
     {
         return $this->belongsTo(CoresImpressao::class);
     }

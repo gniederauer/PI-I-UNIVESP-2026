@@ -18,7 +18,10 @@ class OrcamentoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'data_solicitacao' => $this->faker->date(),
+            'observacoes' => $this->faker->sentence(),
+            'valor_total' => $this->faker->numberBetween(1, 100),
+            'status' => $this->faker->numberBetween(1, 4),
         ];
     }
 }
