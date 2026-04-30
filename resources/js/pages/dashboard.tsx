@@ -2,8 +2,9 @@ import { Head } from '@inertiajs/react';
 import { StatusCard } from '@/components/ui/status-card';
 import { dashboard } from '@/routes';
 import { Box, Send, Check, Clock, CircleCheck } from 'lucide-react';
+import { StatusCounts } from '@/types/ui';
 
-export default function Dashboard({ statusCounts }) {
+export default function Dashboard({ statusCounts }: { statusCounts: StatusCounts }) {
     return (
         <>
             <Head title="Dashboard" />

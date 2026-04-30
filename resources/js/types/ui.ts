@@ -19,3 +19,12 @@ export type AuthLayoutProps = {
     title?: string;
     description?: string;
 };
+
+
+export type StatusCounts = {
+    total: number;
+    aprovado: number;
+    enviado: number;
+    emAndamento: number;
+    finalizado: number;
+};
