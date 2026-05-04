@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import type { BreadcrumbItem } from '@/types/navigation';
+import { ColumnDef } from '@tanstack/react-table';
 
 export type AppLayoutProps = {
     children: ReactNode;
@@ -19,7 +20,6 @@ export type AuthLayoutProps = {
     title?: string;
     description?: string;
 };
-
 
 export type StatusCounts = {
     total: number;
@@ -44,3 +44,8 @@ export type LineChartProps = {
     datasets: LineChartDataset[];
     className?: string;
 };
+
+export type DataTableProperties<TData, TValue> = {
+    columns: ColumnDef<TData, TValue>[]
+    data: TData[]
+}
