@@ -2,9 +2,16 @@ import { Head } from '@inertiajs/react';
 import { StatusCard } from '@/components/ui/status-card';
 import { dashboard } from '@/routes';
 import { Box, Send, Check, Clock, CircleCheck } from 'lucide-react';
-import { StatusCounts } from '@/types/ui';
+import { StatusCounts, BudgetChartData } from '@/types/ui';
+import { LineChart } from '@/components/line-chart';
 
-export default function Dashboard({ statusCounts }: { statusCounts: StatusCounts }) {
+export default function Dashboard({
+    statusCounts,
+    budgetsByMonth,
+}: {
+    statusCounts: StatusCounts;
+    budgetsByMonth: BudgetChartData;
+}) {
     return (
         <>
             <Head title="Dashboard" />
@@ -35,6 +42,16 @@ export default function Dashboard({ statusCounts }: { statusCounts: StatusCounts
                         <StatusCard title="Finalizados" value={statusCounts.finalizado}>
                             <CircleCheck className="size-6 text-green-500" />
                         </StatusCard>
+                    </div>
+                </div>
+                <div className="relative w-full overflow-hidden rounded-xl border border-sidebar-border/70 bg-background dark:border-sidebar-border p-4">
+                    <h1 className="text-xl font-bold tracking-tight">Orçamentos por mês</h1>
+                    <div className="flex items-center justify-between border-b border-border/50 bg-card px-4 py-4">
+                        <LineChart
+                            labels={budgetsByMonth.labels}
+                            datasets={budgetsByMonth.datasets}
+                            className="w-full"
+                        />
                     </div>
                 </div>
             </div>

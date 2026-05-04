@@ -28,3 +28,19 @@ export type StatusCounts = {
     emAndamento: number;
     finalizado: number;
 };
+
+type LineChartDataset = {
+    label: string;
+    data: number[];
+};
+
+export type BudgetChartData = {
+    labels: string[];
+    datasets: LineChartDataset[];
+};
+
+export type LineChartProps = {
+    labels: string[];
+    datasets: LineChartDataset[];
+    className?: string;
+};

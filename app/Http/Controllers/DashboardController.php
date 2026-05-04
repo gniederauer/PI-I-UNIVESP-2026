@@ -14,6 +14,7 @@ class DashboardController extends Controller
     {
         return inertia('dashboard', [
             'statusCounts' => Orcamento::getCountsByStatus(),
+            'budgetsByMonth' => Orcamento::getBudgetsByMonth(),
         ]);
     }
 }

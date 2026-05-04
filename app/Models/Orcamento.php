@@ -65,6 +65,66 @@ class Orcamento extends Model
             ->toArray();
     }
 
+    /**
+     * Retorna os dados de orçamentos por mês nos últimos 12 meses.
+     *
+     * @return array{
+     *     labels: string[],
+     *     datasets: array<int, array<string, mixed>>,
+     * }
+     */
+    public static function getBudgetsByMonth(): array
+    {
+        $labelsMap = [
+            'jan',
+            'fev',
+            'mar',
+            'abr',
+            'mai',
+            'jun',
+            'jul',
+            'ago',
+            'set',
+            'out',
+            'nov',
+            'dez',
+        ];
+
+        $start = now()->subMonths(11)->startOfMonth();
+        $end = now()->endOfMonth();
+
+        $periods = collect(range(0, 11))
+            ->map(fn(int $offset) => $start->copy()->addMonths($offset));
+
+        $monthlyResults = self::query()
+            ->whereBetween('data_solicitacao', [$start, $end])
+            ->get(['data_solicitacao', 'valor_total'])
+            ->groupBy(fn(self $orcamento) => $orcamento->data_solicitacao->format('Y-m'))
+            ->map(fn($group) => [
+                'count' => $group->count(),
+                'total' => $group->sum(fn(self $orcamento) => (float) $orcamento->valor_total),
+            ])
+            ->all();
+
+        $labels = $periods
+            ->map(fn($date) => sprintf('%s/%s', $labelsMap[$date->month - 1], $date->format('y')))
+            ->toArray();
+
+        $counts = $periods
+            ->map(fn($date) => $monthlyResults[$date->format('Y-m')]['count'] ?? 0)
+            ->toArray();
+
+        return [
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => 'Orçamentos',
+                    'data' => $counts,
+                ],
+            ],
+        ];
+    }
+
     protected function casts(): array
     {
         return [
