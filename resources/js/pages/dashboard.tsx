@@ -2,7 +2,7 @@ import { Head } from '@inertiajs/react';
 import { StatusCard } from '@/components/ui/status-card';
 import { dashboard } from '@/routes';
 import { Box, Send, Check, Clock, CircleCheck } from 'lucide-react';
-import { StatusCounts, BudgetChartData } from '@/types/ui';
+import { StatusCounts, BudgetChartData, PaginatedData } from '@/types/ui';
 import { LineChart } from '@/components/line-chart';
 import { DataTable } from '@/components/data-table';
 import { columns } from '@/components/tables/orcamento';
@@ -15,7 +15,7 @@ export default function Dashboard({
 }: {
     statusCounts: StatusCounts;
     budgetsByMonth: BudgetChartData;
-    latestBudgets: Orcamento[];
+    latestBudgets: PaginatedData<Orcamento>;
 }) {
     return (
         <>

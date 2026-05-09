@@ -45,7 +45,14 @@ export type LineChartProps = {
     className?: string;
 };
 
+export type PaginatedData<T> = {
+    data: T[];
+    last_page: number;
+    current_page: number;
+    per_page: number;
+};
+
 export type DataTableProperties<TData, TValue> = {
     columns: ColumnDef<TData, TValue>[]
-    data: TData[]
+    data: PaginatedData<TData>;
 }

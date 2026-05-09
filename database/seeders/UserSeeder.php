@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
                     ->for(GramaturaPapel::inRandomOrder(rand())->first())
                     ->for(CoresImpressao::inRandomOrder(rand())->first())
                     ->for(TipoPapel::inRandomOrder(rand())->first())
-            )->count(5);
+            )->count(20);
 
         $cliente = Cliente::factory()
             ->has(Endereco::factory())

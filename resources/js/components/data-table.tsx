@@ -2,7 +2,6 @@ import {
     flexRender,
     getCoreRowModel,
     useReactTable,
-    getPaginationRowModel,
 } from "@tanstack/react-table";
 
 import {
@@ -18,15 +17,29 @@ import { Button } from "@/components/ui/button";
 import { DataTableProperties } from "@/types"
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+import { router } from "@inertiajs/react";
+
 export function DataTable<D, V>({
     columns,
-    data,
+    data: { data, per_page, last_page, current_page },
 }: DataTableProperties<D, V>) {
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
+        manualPagination: true,
+        pageCount: last_page,
+        state: {
+            pagination: {
+                pageIndex: current_page - 1,
+                pageSize: per_page,
+            },
+        },
+        onPaginationChange: (updater) => {
+            const newIndex = typeof updater === "function" ? updater({ pageIndex: current_page - 1, pageSize: per_page }) : updater;
+
+            router.get(window.location.pathname, { page: newIndex.pageIndex + 1 }, { preserveState: true, preserveScroll: true });
+        },
     });
 
     return (
@@ -75,26 +88,24 @@ export function DataTable<D, V>({
                     </TableBody>
                 </Table>
             </div>
-            {table.getCanNextPage() || table.getCanPreviousPage() ? (
-                <div className="flex items-center justify-center space-x-4 p-4">
-                    <Button
-                        variant="link"
-                        size="sm"
-                        onClick={() => table.previousPage()}
-                        disabled={!table.getCanPreviousPage()}
-                    >
-                        <ChevronLeft /> Página anterior
-                    </Button>
-                    <Button
-                        variant="link"
-                        size="sm"
-                        onClick={() => table.nextPage()}
-                        disabled={!table.getCanNextPage()}
-                    >
-                        Próxima página <ChevronRight />
-                    </Button>
-                </div>
-            ) : null}
+            <div className="flex items-center justify-center space-x-4 p-4">
+                <Button
+                    variant="link"
+                    size="sm"
+                    onClick={() => table.previousPage()}
+                    disabled={!table.getCanPreviousPage()}
+                >
+                    <ChevronLeft /> Página anterior
+                </Button>
+                <Button
+                    variant="link"
+                    size="sm"
+                    onClick={() => table.nextPage()}
+                    disabled={!table.getCanNextPage()}
+                >
+                    Próxima página <ChevronRight />
+                </Button>
+            </div>
         </div>
     )
 }

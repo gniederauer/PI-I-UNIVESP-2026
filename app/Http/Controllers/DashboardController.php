@@ -15,13 +15,14 @@ class DashboardController extends Controller
         $latestBudgets = Orcamento::query()
             ->latest('data_solicitacao')
             ->take(5)
-            ->get()
-            ->map(fn($orcamento) => [
-                'id' => $orcamento->id,
-                'cliente' => $orcamento->cliente->nome_empresa,
-                'status' => str($orcamento->status->name)->title()->replace('_', ' ')->toString(),
-                'dataSolicitacao' => $orcamento->data_solicitacao->format('d/m/Y'),
-            ]);
+            ->paginate(5);
+
+        $latestBudgets->getCollection()->transform(fn($orcamento) => [
+            'id' => $orcamento->id,
+            'cliente' => $orcamento->cliente->nome_empresa,
+            'status' => str($orcamento->status->name)->title()->replace('_', ' ')->toString(),
+            'dataSolicitacao' => $orcamento->data_solicitacao->format('d/m/Y'),
+        ]);
 
         return inertia('dashboard', [
             'statusCounts' => Orcamento::getCountsByStatus(),

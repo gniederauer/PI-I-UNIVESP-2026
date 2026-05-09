@@ -13,7 +13,16 @@ class OrcamentoController extends Controller
      */
     public function index()
     {
-        return inertia('orcamentos/index');
+        $budgets = Orcamento::with(['cliente'])->paginate(10);
+
+        $budgets->getCollection()->transform(fn($orcamento) => [
+            'id' => $orcamento->id,
+            'cliente' => $orcamento->cliente->nome_empresa,
+            'status' => str($orcamento->status->name)->title()->replace('_', ' ')->toString(),
+            'dataSolicitacao' => $orcamento->data_solicitacao->format('d/m/Y'),
+        ]);
+
+        return inertia('orcamentos/index', compact('budgets'));
     }
 
     /**
