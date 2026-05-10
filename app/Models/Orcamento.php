@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Enums\StatusOrcamento;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,6 +14,14 @@ class Orcamento extends Model
 {
     /** @use HasFactory<\Database\Factories\OrcamentoFactory> */
     use HasFactory;
+
+    /**
+     * @inheritDoc
+     */
+    protected $with = [
+        'cliente',
+        'arte',
+    ];
 
     /**
      * @return BelongsTo<Cliente>
@@ -130,7 +137,7 @@ class Orcamento extends Model
     {
         return [
             'valor_total' => 'decimal:2',
-            'data_solicitacao' => 'datetime',
+            'data_solicitacao' => 'datetime:d/m/Y',
             'status' => StatusOrcamento::class,
             'observacoes' => 'string',
         ];

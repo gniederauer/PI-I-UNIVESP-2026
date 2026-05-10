@@ -12,7 +12,7 @@ class UpdateClienteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->user()->isAdmin() || auth()->user()->cliente?->id === $this->route('cliente')->id;
     }
 
     /**
@@ -23,7 +23,10 @@ class UpdateClienteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nome_empresa' => 'required|string|max:255',
+            'nome_solicitante' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'whatsapp' => 'required|regex:/^\(?([1-9][0-9])\)?\s?9([0-9]{4})\-?([0-9]{4})$/|string|max:16',
         ];
     }
 }

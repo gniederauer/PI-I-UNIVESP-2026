@@ -26,21 +26,6 @@ class ClienteController extends Controller
         return inertia('clientes/index', compact('clients'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreClienteRequest $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -62,14 +47,6 @@ class ClienteController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdateClienteRequest $request, Cliente $cliente)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Cliente $cliente)
     {
         //
     }

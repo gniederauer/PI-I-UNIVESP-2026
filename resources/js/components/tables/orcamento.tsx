@@ -19,7 +19,7 @@ export const columns: ColumnDef<Orcamento>[] = [
         header: "Data",
     },
     {
-        accessorKey: "cliente",
+        accessorKey: "nomeCliente",
         header: "Cliente",
     },
     {

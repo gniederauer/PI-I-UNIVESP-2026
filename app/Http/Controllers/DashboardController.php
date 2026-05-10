@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Orcamento;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class DashboardController extends Controller
 {
@@ -12,17 +13,19 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $latestBudgets = Orcamento::query()
+        $orcamentos = Orcamento::with('cliente')
             ->latest('data_solicitacao')
             ->take(5)
-            ->paginate(5);
+            ->get()
+            ->map(fn($orcamento) => [
+                'id' => $orcamento->id,
+                'nomeCliente' => $orcamento->cliente->nome_empresa,
+                'cliente' => $orcamento->cliente,
+                'status' => str($orcamento->status->name)->title()->replace('_', ' ')->toString(),
+                'dataSolicitacao' => $orcamento->data_solicitacao->format('d/m/Y'),
+            ]);
 
-        $latestBudgets->getCollection()->transform(fn($orcamento) => [
-            'id' => $orcamento->id,
-            'cliente' => $orcamento->cliente->nome_empresa,
-            'status' => str($orcamento->status->name)->title()->replace('_', ' ')->toString(),
-            'dataSolicitacao' => $orcamento->data_solicitacao->format('d/m/Y'),
-        ]);
+        $latestBudgets = new LengthAwarePaginator($orcamentos, $orcamentos->count(), 5, 1);
 
         return inertia('dashboard', [
             'statusCounts' => Orcamento::getCountsByStatus(),

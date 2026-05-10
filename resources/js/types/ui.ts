@@ -56,3 +56,11 @@ export type DataTableProperties<TData, TValue> = {
     columns: ColumnDef<TData, TValue>[]
     data: PaginatedData<TData>;
 }
+
+export type FileUploadProps = {
+    nome: string;
+    mimes?: string;
+    erro?: string;
+    arquivoSelecionado?: string | null;
+    className?: string;
+}

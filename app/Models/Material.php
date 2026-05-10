@@ -7,13 +7,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['quantidade'])]
+#[Fillable([
+    'orcamento_id',
+    'quantidade',
+    'tipo_material_id',
+    'formato_id',
+    'gramatura_papel_id',
+    'cores_impressao_id',
+    'tipo_papel_id',
+])]
 class Material extends Model
 {
     protected $table = 'materiais';
 
     /** @use HasFactory<\Database\Factories\MaterialFactory> */
     use HasFactory;
+
+    protected $with = ['tipoMaterial', 'formato', 'gramaturaPapel', 'coresImpressao', 'tipoPapel'];
+
+    /**
+     * @return array<string, string>
+     */
 
     /**
      * @return BelongsTo<Orcamento>
