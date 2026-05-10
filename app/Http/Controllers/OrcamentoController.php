@@ -20,7 +20,7 @@ class OrcamentoController extends Controller
      */
     public function index()
     {
-        $budgets = Orcamento::paginate(10);
+        $budgets = auth()->user()->isAdmin() ? Orcamento::paginate(10) : auth()->user()->cliente->orcamentos()->paginate(10);
 
         $budgets->getCollection()->transform(fn($orcamento) => [
             'id' => $orcamento->id,

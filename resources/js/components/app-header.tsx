@@ -36,22 +36,22 @@ type Props = {
     breadcrumbs?: BreadcrumbItem[];
 };
 
-const mainNavItems: NavItem[] = [
-    {
+const mainNavItems: (isAdmin: boolean) => NavItem[] = (isAdmin) => [
+    ...(isAdmin ? [{
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
-    },
+    }] : []),
     {
         title: 'Orçamentos',
         href: orcamentos.index(),
         icon: BanknoteIcon,
     },
-    {
+    ...(isAdmin ? [{
         title: 'Clientes',
         href: clientes.index(),
         icon: User,
-    }
+    }] : []),
 ];
 
 const activeItemStyles =
@@ -62,6 +62,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
     const { auth } = page.props;
     const getInitials = useInitials();
     const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
+    const isAdmin = auth.user?.is_admin as boolean;
 
     return (
         <>
@@ -92,7 +93,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                 <div className="flex h-full flex-1 flex-col space-y-4 p-4">
                                     <div className="flex h-full flex-col justify-between text-sm">
                                         <div className="flex flex-col space-y-4">
-                                            {mainNavItems.map((item) => (
+                                            {mainNavItems(isAdmin).map((item) => (
                                                 <Link
                                                     key={item.title}
                                                     href={item.href}
@@ -123,7 +124,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                     <div className="ml-6 hidden h-full items-center space-x-6 lg:flex">
                         <NavigationMenu className="flex h-full items-stretch">
                             <NavigationMenuList className="flex h-full items-stretch space-x-2">
-                                {mainNavItems.map((item, index) => (
+                                {mainNavItems(isAdmin).map((item, index) => (
                                     <NavigationMenuItem
                                         key={index}
                                         className="relative flex h-full items-center"

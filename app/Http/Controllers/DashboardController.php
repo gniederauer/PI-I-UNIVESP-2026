@@ -13,6 +13,10 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
+        if (!$request->user()->isAdmin()) {
+            return redirect()->route('orcamentos.index');
+        }
+
         $orcamentos = Orcamento::with('cliente')
             ->latest('data_solicitacao')
             ->take(5)

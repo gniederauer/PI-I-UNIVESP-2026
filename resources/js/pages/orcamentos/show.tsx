@@ -1,6 +1,5 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { edit, index } from '@/routes/orcamentos';
-import { show as showCliente } from '@/routes/clientes';
 import { Orcamento } from '@/types/orcamento';
 import InfoTable from '@/components/info-table';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
@@ -23,18 +22,26 @@ const textosStatus: Record<number, string> = {
 };
 
 export default function Orcamentos({ orcamento }: { orcamento: Orcamento }) {
+    const page = usePage();
+
+    const { auth } = page.props;
+
+    const isAdmin = auth?.user?.is_admin as boolean;
+
     return (
         <>
             <Head title="Orçamentos" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="w-full flex flex-row justify-between">
                     <h1 className="text-xl font-bold tracking-tight mb-4">Detalhes do Orçamento</h1>
-                    <Link href={edit({ orcamento: orcamento.id })}>
-                        <Button variant="outline" size="sm">
-                            <PencilIcon />
-                            Editar
-                        </Button>
-                    </Link>
+                    {isAdmin && (
+                        <Link href={edit({ orcamento: orcamento.id })}>
+                            <Button variant="outline" size="sm">
+                                <PencilIcon />
+                                Editar
+                            </Button>
+                        </Link>
+                    )}
                 </div>
                 <div className="relative flex-1 overflow-hidden rounded-xl md:min-h-min">
                     <div className="grid gap-4 md:grid-cols-3 auto-rows-max">
@@ -50,14 +57,6 @@ export default function Orcamentos({ orcamento }: { orcamento: Orcamento }) {
                                     ]}
                                 />
                             </CardContent>
-                            <CardFooter>
-                                <Link href={showCliente(orcamento.cliente.id)}>
-                                    <Button variant="outline" size="sm">
-                                        <EyeIcon className="mr-2 h-4 w-4" />
-                                        Ver cliente
-                                    </Button>
-                                </Link>
-                            </CardFooter>
                         </Card>
 
                         <Card className="h-full flex flex-col">
