@@ -17,4 +17,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
 require __DIR__ . '/settings.php';
 
 Route::middleware('auth')->resource('orcamentos', OrcamentoController::class)->except('destroy');
-Route::middleware('auth')->resource('clientes', ClienteController::class)->except('create', 'destroy');
+Route::middleware('auth')->resource('clientes', ClienteController::class)->except('create', 'destroy', 'edit', 'update');
