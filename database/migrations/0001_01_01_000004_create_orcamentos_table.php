@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orcamentos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cliente_id')->constrained()->cascadeOnDelete();
-            $table->decimal('valor_total', 10, 2);
+            $table->decimal('valor_total', 10, 2)->nullable();
             $table->dateTime('data_solicitacao');
             $table->unsignedTinyInteger('status')->default(1);
             $table->text('observacoes')->nullable();

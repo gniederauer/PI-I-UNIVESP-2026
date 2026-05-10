@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-#[Fillable(['valor_total', 'data_solicitacao', 'status', 'observacoes'])]
+#[Fillable(['valor_total', 'data_solicitacao', 'status', 'observacoes', 'cliente_id'])]
 class Orcamento extends Model
 {
     /** @use HasFactory<\Database\Factories\OrcamentoFactory> */
