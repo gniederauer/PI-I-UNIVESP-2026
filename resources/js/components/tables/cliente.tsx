@@ -25,21 +25,5 @@ export const columns: ColumnDef<Cliente>[] = [
     {
         accessorKey: "whatsapp",
         header: "WhatsApp",
-    },
-    {
-        id: "actions",
-        header: "Ações",
-        cell: ({ row }) => {
-            const cliente = row.original;
-
-            return (
-                <Link href={show(cliente.id)}>
-                    <Button variant="outline" size="sm">
-                        <EyeIcon className="mr-2 h-4 w-4" />
-                        Ver
-                    </Button>
-                </Link>
-            );
-        },
     }
 ];
