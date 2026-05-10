@@ -53,10 +53,10 @@ export default function Store({
 
     return (
         <>
-            <Head title="Editar Orçamento" />
+            <Head title="Novo orçamento" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="w-full flex flex-row justify-between">
-                    <h1 className="text-xl font-bold tracking-tight mb-4">Novo Orçamento</h1>
+                    <h1 className="text-xl font-bold tracking-tight mb-4">Novo orçamento</h1>
                 </div>
 
                 <Form

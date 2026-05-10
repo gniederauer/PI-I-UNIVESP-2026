@@ -12,7 +12,7 @@ import { store } from '@/routes/register';
 export default function Register() {
     return (
         <>
-            <Head title="Register" />
+            <Head title="Cadastrar" />
             <Form
                 {...store.form()}
                 resetOnSuccess={['password', 'password_confirmation']}
@@ -23,7 +23,7 @@ export default function Register() {
                     <>
                         <div className="grid gap-6">
                             <div className="grid gap-2">
-                                <Label htmlFor="name">Name</Label>
+                                <Label htmlFor="name">Nome</Label>
                                 <Input
                                     id="name"
                                     type="text"
@@ -32,7 +32,7 @@ export default function Register() {
                                     tabIndex={1}
                                     autoComplete="name"
                                     name="name"
-                                    placeholder="Full name"
+                                    placeholder="Nome completo"
                                 />
                                 <InputError
                                     message={errors.name}
@@ -41,7 +41,43 @@ export default function Register() {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
+                                <Label htmlFor="nome_empresa">Nome da sua empresa</Label>
+                                <Input
+                                    id="nome_empresa"
+                                    type="text"
+                                    required
+                                    autoFocus
+                                    tabIndex={1}
+                                    autoComplete="nome_empresa"
+                                    name="nome_empresa"
+                                    placeholder="Empresa de Teste LTDA"
+                                />
+                                <InputError
+                                    message={errors.nome_empresa}
+                                    className="mt-2"
+                                />
+                            </div>
+
+                            <div className="grid gap-2">
+                                <Label htmlFor="nome_empresa">Número de WhatsApp</Label>
+                                <Input
+                                    id="whatsapp"
+                                    type="text"
+                                    required
+                                    autoFocus
+                                    tabIndex={1}
+                                    autoComplete="whatsapp"
+                                    name="whatsapp"
+                                    placeholder="(99) 99999-9999"
+                                />
+                                <InputError
+                                    message={errors.whatsapp}
+                                    className="mt-2"
+                                />
+                            </div>
+
+                            <div className="grid gap-2">
+                                <Label htmlFor="email">Endereço de email</Label>
                                 <Input
                                     id="email"
                                     type="email"
@@ -49,27 +85,27 @@ export default function Register() {
                                     tabIndex={2}
                                     autoComplete="email"
                                     name="email"
-                                    placeholder="email@example.com"
+                                    placeholder="email@exemplo.com"
                                 />
                                 <InputError message={errors.email} />
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password">Password</Label>
+                                <Label htmlFor="password">Senha</Label>
                                 <PasswordInput
                                     id="password"
                                     required
                                     tabIndex={3}
                                     autoComplete="new-password"
                                     name="password"
-                                    placeholder="Password"
+                                    placeholder="Senha"
                                 />
                                 <InputError message={errors.password} />
                             </div>
 
                             <div className="grid gap-2">
                                 <Label htmlFor="password_confirmation">
-                                    Confirm password
+                                    Confirmar senha
                                 </Label>
                                 <PasswordInput
                                     id="password_confirmation"
@@ -77,7 +113,7 @@ export default function Register() {
                                     tabIndex={4}
                                     autoComplete="new-password"
                                     name="password_confirmation"
-                                    placeholder="Confirm password"
+                                    placeholder="Confirmar senha"
                                 />
                                 <InputError
                                     message={errors.password_confirmation}
@@ -91,14 +127,14 @@ export default function Register() {
                                 data-test="register-user-button"
                             >
                                 {processing && <Spinner />}
-                                Create account
+                                Cadastrar
                             </Button>
                         </div>
 
                         <div className="text-center text-sm text-muted-foreground">
-                            Already have an account?{' '}
+                            Já é cliente?{' '}
                             <TextLink href={login()} tabIndex={6}>
-                                Log in
+                                Entrar no sistema
                             </TextLink>
                         </div>
                     </>
@@ -109,6 +145,6 @@ export default function Register() {
 }
 
 Register.layout = {
-    title: 'Create an account',
-    description: 'Enter your details below to create your account',
+    title: 'Cadastrar',
+    description: 'Cadastre-se na Gráfica Fácil',
 };

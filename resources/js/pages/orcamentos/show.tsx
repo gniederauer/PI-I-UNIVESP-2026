@@ -12,7 +12,7 @@ import {
     TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { Download, EyeIcon, PencilIcon } from 'lucide-react';
+import { Download, PencilIcon } from 'lucide-react';
 
 const textosStatus: Record<number, string> = {
     1: 'Enviado',
